@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="Cache-Control" content="max-age=5" />
+    <title>详情页</title>
+    <link rel="stylesheet"  href="css/base.css" type="text/css" />
+    <link rel="stylesheet"  href="css/details.css" type="text/css" />
+    <link rel="stylesheet"  href="js/layer/skin/layer.css" type="text/css" />
+    <script src="js/require/require.js"></script>
+    <script type="text/javascript">
+        require(['js/page/main'], function (main) {
+            require(['js/page/main_detail']);
+        });
+    </script>
+    <style>
+        .ms-controller{visibility: hidden;}
+    </style>
+</head>
+<body ms-controller="detail_root">
+
+<!--head-->
+<div ms-include-src="'modules/common/head.html'" data-include-replace="true"></div>
+<!--head end-->
+
+<!--centont-->
+<div ms-include-src="detail_content" data-include-replace="true"></div>
+<!--centont end-->
+
+<!--footer--->
+    <div ms-include-src="'modules/common/footer.html'" data-include-replace="true"></div>
+<!--footer end--->
+
+</body>
+</html>
