@@ -110,15 +110,8 @@ require(['avalon', "mmRouter", "domReady", 'base'], function () {//第二块，�
         model.query = this.query
         model.args = "[" + [].slice.call(arguments, 0) + "]"
 
-        model.params["lname"] = model.params["lname"] == undefined ? "i" : model.params["lname"];
-        model.params["ptype"] = model.params["ptype"] == undefined ? "all" : model.params["ptype"];
-        model.params["page"] = model.params["page"] == undefined ? "1" : model.params["page"];
-
-        console.log(JSON.stringify(model.params));
-        if (avalon.vmodels.people_nav) {
-            avalon.vmodels.people_nav.activeNode = model.params["ptype"]; //设置导航高亮
-        }
-        var lname = model.params["lname"];
+        model.params["type"] = model.params["type"] == undefined ? "homenew" : model.params["type"];
+        model.params["type"] = model.params["type"] == undefined ? "homenew" : model.params["type"];
 
         var pagepath = "people_" + model.params["ptype"];
 
