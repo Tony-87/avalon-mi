@@ -1,77 +1,29 @@
 <!DOCTYPE html>
 <html>
-    <head>
+<head>
     <title>首页</title>
     <meta charset="UTF-8">
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <meta http-equiv="X-UA-Compatible" content="IE=8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <meta http-equiv=Cache-Control" content="max-age=5" />
-    <link rel="stylesheet"  href="css/base.css" type="text/css" />
-    <link rel="stylesheet"  href="css/index.css" type="text/css" />
-    <link rel="stylesheet"  href="js/layer/skin/layer.css" type="text/css" />
+    <meta http-equiv=Cache-Control" content="max-age=5"/>
+
+    <link rel="stylesheet" href="css/base.css" type="text/css"/>
+    <link rel="stylesheet" href="css/index.css" type="text/css"/>
+    <link rel="stylesheet" href="js/layer/skin/layer.css" type="text/css"/>
+
     <meta name="viewport" content="width=device-width">
-    <script src="js/require/require.js"></script>
-        <script type="text/javascript">
-            require(['js/page/main'], function (main) {
-                require(['js/page/main_index']);
-            });
-        </script>
+    <script src="js/require/require.js" data-main="main.js"></script>
     <style>
-        .ms-controller{visibility: hidden;}
+        .ms-controller {
+            visibility: hidden;
+        }
     </style>
-    </head>
-    <body ms-controller="root">
-    <!---web Right--->
-    <div class="webRight" id="webright">
-        <span class="Submission"><a href="#">我要投稿</a></span>
-        <span class="Reviewers"><a href="#">我要审稿</a></span>
-        <span class="Paper "><a href="#">我要写论文</a></span>
-    <span class="Weixin">
-        <strong>
-     扫描二维码<br/>
-     关注Bimt医护在线<br/>
-            <img src="images/wx.png">
-        </strong>
-    </span>
-        <span class="Top"></span>
-    </div>
-    <!---//web Right--->
-        <!--head-->
-        <div ms-include-src="'modules/common/head.html'" data-include-replace="true"></div>
-        <!--head end-->
-        <!--centont-->
-        <div class="index_warp">
-            <!--left-->
-            <div class="index-left fl">
-                <div ms-include-src="home_paper" data-include-replace="true"></div>
-                <div style="width:100%;float:left; display: none; text-align: center; font-size:16px; background-color: #f7f7f7; line-height: 100px;" class="more">正在加载中...</div>
-            </div>
-            <!--left end-->
-            <!--right-->
-            <div class="index-right fr">
-                <!--问答-->
-                <div ms-include-src="askform" data-include-replace="true"></div>
-                <!--问答结束-->
-                <!--好友推荐-->
-                <div ms-include-src="user_recommend" data-include-replace="true" data-incnclude-loaded="fun1"></div>
-                <!--好友推荐end-->
-                <!--问题推荐-->
-                <div ms-include-src="question_recommend" data-include-replace="true"></div>
-                <!--问题推荐end-->
-                <!--论文推荐-->
-                <div ms-include-src="Thesises_recommend" data-include-replace="true"></div>
-                <!--论文推荐end-->
-                <!--会议推荐-->
-                <div ms-include-src="meeting_recommend" data-include-replace="true"></div>
-                <!--会议推荐end-->
-            </div>
-            <!--right end-->
-        </div>
-        <!--centont end-->
-        <!--footer--->
-        <div ms-include-src="'modules/common/footer.html'" data-include-replace="true"></div>
-        <!--footer end--->
-    </body>
+</head>
+<body ms-controller="root">
+
+    <div ms-include-src="index_body" data-include-replace="true"></div>
+
+</body>
 </html>

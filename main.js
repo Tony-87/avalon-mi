@@ -8,7 +8,7 @@ require.config({//require 配置
         jqcookie:'js/jquery/jquery.cookie',
         jqform:'js/jquery/jquery.form',
         mock: 'js/jquery/mock',
-        avalon: "js/avalon/avalon",//必须修改源码，禁用自带加载器，或直接删提AMD加载器模块
+        avalon: "js/avalon/avalon.shim",//必须修改源码，禁用自带加载器，或直接删提AMD加载器模块
         mmHistory: 'js/avalon/mmHistory',
         mmRouter: 'js/avalon/mmRouter',
         mmState: 'js/avalon/mmState',
@@ -68,33 +68,76 @@ require([], function() {
     }
 
     require(['js/page/mockdata']);
-    require(['js/page/indexmockdata']);
-
 });
 
-//从cookie读取 token,刷新页面时执行
-require(["jquery","jqcookie"], function() {
-    if($.cookie("token")!=undefined)
-    {
-        GLOBAL.token= $.cookie("token");
-    }
-});
 
-//模拟登陆
-function moniLogin() {
-    var loginUrl=GLOBAL.ajaxUrl+"/user/signin";
-    var email;
-    var pwd;
-    email="zhangsan@bimt.com";
-    pwd="111111"
-    //console.log(id);
-    var reqData={"email":email,"password":pwd}
-    // url, data, async, type, dataType, successfn, errorfn
-    $.axs(loginUrl,reqData,function (data) {
-        GLOBAL.token=data.result;
-        $.cookie("token",GLOBAL.token);
+
+require(['avalon', "mmRouter", "domReady", 'base'], function () {//第二块，添加根VM（处理共用部分）
+    avalon.templateCache.empty = "&nbsp;"
+
+    var model = avalon.define({
+        $id: "people_root",
+        people_head: 'empty',
+        people_nav: 'empty',
+        people_content: 'empty',
+        result: {},
+        currPath: "",
+        params: {},
+        query: {},
+        args: "[]",
+        nav_render: function () {
+            console.log("people_nav - nav_render");
+            if (avalon.vmodels.people_nav) {
+                avalon.vmodels.people_nav.activeNode = model.params["ptype"];
+                var targetName = model.params["lname"];
+                console.log("targetName==" + targetName);
+                avalon.vmodels.people_nav.data_list.forEach(function (el) {
+                    //targetName=targetName==""?"i":targetName;
+                    el.lname = targetName;
+                })
+
+            }
+        }
     })
 
-}
+
+
+    //导航回调
+    function callback() {
+
+        model.currPath = this.path
+        model.params = this.params
+        model.query = this.query
+        model.args = "[" + [].slice.call(arguments, 0) + "]"
+
+        model.params["lname"] = model.params["lname"] == undefined ? "i" : model.params["lname"];
+        model.params["ptype"] = model.params["ptype"] == undefined ? "all" : model.params["ptype"];
+        model.params["page"] = model.params["page"] == undefined ? "1" : model.params["page"];
+
+        console.log(JSON.stringify(model.params));
+        if (avalon.vmodels.people_nav) {
+            avalon.vmodels.people_nav.activeNode = model.params["ptype"]; //设置导航高亮
+        }
+        var lname = model.params["lname"];
+
+        var pagepath = "people_" + model.params["ptype"];
+
+        require([GLOBAL.moduleDir + 'modules/people/people_page/' + pagepath + ".js"], function () {
+            avalon.vmodels.people_root.people_content = pagepath;
+        });
+
+    }
+
+    //要监控的路由
+    avalon.router.get("/", callback)
+    avalon.router.get("/{type}", callback)
+    avalon.router.get("/{type}/{subtype}", callback)
+    avalon.router.get("/{type}/{subtype}/{id}", callback)
+
+    avalon.history.start({
+        basepath: "/avalon"
+    })
+
+});
 
 
