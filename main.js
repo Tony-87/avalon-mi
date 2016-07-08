@@ -70,8 +70,6 @@ require([], function() {
     require(['js/page/mockdata']);
 });
 
-
-
 require(['avalon', "mmRouter", "domReady", 'base'], function () {//第二块，添加根VM（处理共用部分）
     avalon.templateCache.empty = "&nbsp;"
 
@@ -100,8 +98,6 @@ require(['avalon', "mmRouter", "domReady", 'base'], function () {//第二块，�
         }
     })
 
-
-
     //导航回调
     function callback() {
 
@@ -111,7 +107,7 @@ require(['avalon', "mmRouter", "domReady", 'base'], function () {//第二块，�
         model.args = "[" + [].slice.call(arguments, 0) + "]"
 
         model.params["type"] = model.params["type"] == undefined ? "homenew" : model.params["type"];
-        model.params["type"] = model.params["type"] == undefined ? "homenew" : model.params["type"];
+        model.params["subtype"] = model.params["subtype"] == undefined ? "all" : model.params["subtype"];
 
         var pagepath = "people_" + model.params["ptype"];
 
